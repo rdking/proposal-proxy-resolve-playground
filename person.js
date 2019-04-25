@@ -13,7 +13,7 @@ export class Person {
   }
 
   set name(value) {
-    mapSet(names, this, value, true);
+    mapSet(names, this, value);
   }
 
   get age() {
@@ -21,7 +21,7 @@ export class Person {
   }
 
   set age(value) {
-    mapSet(ages, this, value, true);
+    mapSet(ages, this, value);
   }
 
   sayHi(to) {
@@ -32,6 +32,6 @@ export class Person {
   }
 
   beAgeless() {
-    mapDelete(ages, this, true);
+    mapDelete(ages, this);
   }
 }

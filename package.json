@@ -11,7 +11,8 @@
     "esm": "^3.2.22"
   },
   "scripts": {
-    "start": "node --require esm test.js"
+    "start": "node --require esm test.js",
+    "test": "node --require esm test.js | diff -C5 expected.txt -"
   },
   "author": "Mathieu Hofman",
   "license": "ISC"

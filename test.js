@@ -23,5 +23,6 @@ console.log(proxy2Jane.age);
 proxy2Jane.beAgeless();
 console.log(proxy1Jane.age);
 
-stopMonitoring(proxy2John);
-stopMonitoring(proxy2Jane);
+console.log(stopMonitoring(proxy2John));
+console.log(stopMonitoring(proxy2John));
+console.log(stopMonitoring(proxy2Jane));

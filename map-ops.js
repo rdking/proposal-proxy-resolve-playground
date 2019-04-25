@@ -14,22 +14,26 @@ function getResolvedKey(map, key) {
   return resolvedKey;
 }
 
-export function mapGet(map, key) {
-  return map.get(getResolvedKey(map, key));
+export function mapGet(map, key, useResolve) {
+  const resolvedKey = useResolve === false ? key : getResolvedKey(map, key);
+
+  return map.get(resolvedKey);
 }
 
-export function mapHas(map, key) {
-  return map.has(getResolvedKey(map, key));
+export function mapHas(map, key, useResolve) {
+  const resolvedKey = useResolve === false ? key : getResolvedKey(map, key);
+
+  return map.has(resolvedKey);
 }
 
 export function mapSet(map, key, value, useResolve) {
-  const resolvedKey = useResolve ? getResolvedKey(map, key) : key;
+  const resolvedKey = useResolve === false ? key : getResolvedKey(map, key);
 
   return map.set(resolvedKey, value);
 }
 
 export function mapDelete(map, key, useResolve) {
-  const resolvedKey = useResolve ? getResolvedKey(map, key) : key;
+  const resolvedKey = useResolve === false ? key : getResolvedKey(map, key);
 
   return map.delete(resolvedKey);
 }

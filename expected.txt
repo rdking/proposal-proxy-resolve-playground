@@ -1,0 +1,29 @@
+resolve on john by User 1
+set john.name=Johnny by User 1
+resolve private identity on john by User 1
+resolve on john by User 2
+get john.name by User 2
+resolve private identity on john by User 2
+Johnny
+resolve on john by User 1
+get john.sayHi by User 1
+resolve private identity on jane by User 2
+resolve private identity on john by User 1
+Hello Jane, I am Johnny.
+resolve on jane by User 1
+set jane.age=30 by User 1
+resolve private identity on jane by User 1
+resolve on jane by User 2
+get jane.age by User 2
+resolve private identity on jane by User 2
+30
+resolve on jane by User 2
+get jane.beAgeless by User 2
+resolve private identity on jane by User 2
+resolve on jane by User 1
+get jane.age by User 1
+resolve private identity on jane by User 1
+undefined
+true
+false
+true
