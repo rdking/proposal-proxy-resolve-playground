@@ -89,3 +89,58 @@ export function GetProxyDetails(proxy) {
 export function GetProxiesForTarget(target) {
   return proxiesForTarget.get(target);
 }
+
+/*
+  New Code below this line!
+  -------------------------------------------------------------------------
+ */
+
+ export default ResolvableProxy = (function() {
+  const map = new WeakMap;
+
+  //Let's pretend that a leading `_` means private
+  function isPrivate(field) {
+    let retval = false;
+    let isPvt = !(["string", "symbol"].includes(typeof(prop)));
+  }
+
+  return class ResolvableProxy {
+    constructor(target, handler) {
+      let retval = Proxy.revocable(target, new Proxy(handler, {
+        get(t, key, r) {
+          return function(...args) {
+            let [tgt, prop] = args;
+            let receiver = retval;
+            if ((prop != "resolve") && ("resolve" in tgt)) {
+              receiver = tgt.resolve(target, receiver, isPrivate(prop), key);
+              assert(receiver && (typeof(receiver) == "object"));
+            }
+
+            if (key == "get") {
+              args[2] = receiver;
+            }
+            else if (key == "set") {
+              args[3] = receiver;
+            }
+ 
+            return (handler[key] || Reflect[key])(...args);
+          }
+        }
+      }));
+      map.set(retval, target);
+      return retval;
+    }
+
+    static resolve(receiver, isPrivate, reason) {
+      let retval = receiver;
+      if (map.has(receiver) && ("resolve" in handler)) {
+        let target = map.get(receiver);
+        retval = handler.resolve(target, receiver, isPrivate, reason);
+        if (!retval || (typeof(retval) != "object")) {
+          throw new TypeError("[[Handler]].resolve must return a non-null object.");
+        }
+      }
+      return retval;
+    }
+  }
+})();

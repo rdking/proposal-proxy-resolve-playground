@@ -1,5 +1,5 @@
-import { mapGet, mapHas, mapSet, mapDelete } from "./map-ops.js";
-import { NewRevocableProxy } from "./proxy-ops.js";
+import AliasingMap, { mapGet, mapHas, mapSet, mapDelete } from "./map-ops.js";
+import ResolvableProxy, { NewRevocableProxy } from "./proxy-ops.js";
 
 const proxies = new Map();
 
@@ -33,6 +33,11 @@ const handler = {
   }
 };
 
+/*
+  New Code below this line!
+  -------------------------------------------------------------------------
+ */
+
 export function monitor(target, targetInfo, userInfo) {
   if (mapHas(proxies, target, useResolve)) {
     target = mapGet(proxies, target, useResolve).target;
@@ -62,3 +67,9 @@ export function stopMonitoring(proxy) {
 
   return mapDelete(proxies, proxy, useResolve);
 }
+
+export default Monitor = (function() {
+  const map = new AliasingMap()
+  return class Monitor {
+  };
+})();
